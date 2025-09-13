@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Coming Soon • NeonDocs</title>
+
+<!-- Fonts + Styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ---------- Navbar ---------- */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.25);
+  border-radius: 20px;
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+}
+.nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #00eaff;
+  text-shadow: 0 0 8px #00eaff, 0 0 20px #8a2eff;
+}
+.nav nav a {
+  margin-left: 24px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: 0.2s all;
+  text-decoration: none;
+  color: #fff;
+}
+.nav nav a:hover {
+  background: #00eaff;
+  color: #000;
+  box-shadow: 0 0 10px #00eaff, 0 0 30px #8a2eff;
+  transform: translateY(-2px);
+}
+.btn-outline { border: 2px solid #fff; }
+.btn-primary { background: #00eaff; color: #000; }
+
+/* ---------- Hero ---------- */
+.hero {
+  text-align: center;
+  padding: 120px 16px 80px;
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  color: #00eaff;
+  text-shadow: 0 0 12px #00eaff, 0 0 30px #8a2eff;
+  margin-bottom: 16px;
+}
+.hero p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  padding: 24px 16px;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+}
+
+/* ---------- Back to Top ---------- */
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00eaff, #8a2eff);
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 10px #00eaff, 0 0 30px #8a2eff;
+  transition: 0.2s all;
+  z-index: 1000;
+}
+#back-to-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px #00eaff, 0 0 60px #8a2eff;
+}
+
+/* ---------- Particle Canvas ---------- */
+#bg-particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.neon-gradient {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(0,255,255,0.1), rgba(138,46,255,0.1));
+  z-index: 1;
+}
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- Background layers -->
+<canvas id="bg-particles" aria-hidden="true"></canvas>
+<div class="neon-gradient" aria-hidden="true"></div>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<header class="glass nav">
+  <div class="brand">NEON<span>DOCS</span></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="scripts.html">Scripts</a>
+    <a href="flags.html">Flags</a>
+    <a href="coming-soon.html" class="btn btn-outline">Coming Soon</a>
+  </nav>
+</header>
+
+<!-- Main content -->
+<main class="container">
+  <section class="hero">
+    <h1 class="scramble" data-text="Coming Soon">Coming Soon</h1>
+    <p class="lead">Exciting new content is on the way. Stay tuned for updates!</p>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© <span id="year"></span> NeonDocs • Coming Soon</p>
+</footer>
+
+<!-- Fixed Back to Top -->
+<a href="#" id="back-to-top">Back to top</a>
+
+<script>
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Smooth scroll for back to top
+document.getElementById('back-to-top').addEventListener('click', e => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ---------- Particle Background ----------
+const canvas = document.getElementById('bg-particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+const particleCount = 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 1.2;
+    this.speedY = (Math.random() - 0.5) * 1.2;
+    this.color = `rgba(0,255,255,${Math.random()})`;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  for(let i=0; i<particleCount; i++) particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+
+// Resize
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

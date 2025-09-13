@@ -1,0 +1,6 @@
+[
+  {
+    "title": "400 FPS",
+    "description": "{\n  \"FLogNetwork\": \"7\",\n  \"FFlagHandleAltEnterFullscreenManually\": \"False\",\n  \"DFIntTaskSchedulerTargetFps\": \"400\",\n  \"FIntRenderShadowIntensity\": \"0\",\n  \"FFlagDisablePostFx\": \"True\",\n  \"DFFlagTextureQualityOverrideEnabled\": \"True\",\n  \"DFIntTextureQualityOverride\": \"3\",\n  \"DFFlagDebugRenderForceTechnologyVoxel\": \"True\",\n  \"FIntDebugForceMSAASamples\": \"4\",\n  \"FFlagDisableNewIGMinDUA\": \"True\",\n  \"FIntFontSizePadding\": \"3\",\n  \"DFIntCanHideGuiGroupId\": \"32380007\",\n  \"FFlagTaskSchedulerLimitTargetFpsTo2402\": \"False\",\n  \"FFlagEnableMenuControlsABTest\": \"False\",\n  \"FFlagEnableInGameMenuChrome\": \"True\",\n  \"FFlagEnableInGameMenuChromeABTest3\": \"False\",\n  \"FFlagEnableInGameMenuModernization\": \"True\",\n  \"FFlagEnableInGameMenuControls\": \"True\",\n  \"FFlagEnableV3MenuABTest3\": \"False\",\n  \"FFlagNewLightAttenuation\": \"True\",\n  \"FFlagFixGraphicsQuality\": \"True\",\n  \"DFFlagDebugPauseVoxelizer\": \"True\",\n  \"FIntRenderShadowmapBias\": \"0\"\n}"
+  }
+]

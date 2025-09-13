@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scripts • NeonDocs</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* Your existing CSS (unchanged) */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Navbar, Hero, Add Script Box, Script Cards, Buttons, Footer, Particles, Login Panel */
+.nav { display:flex; justify-content:space-between; align-items:center; padding:16px 32px; backdrop-filter:blur(12px); background:rgba(0,0,0,0.25); border-radius:20px; position:sticky; top:16px; z-index:100; }
+.nav .brand { font-family: 'Orbitron', sans-serif; font-weight:700; font-size:1.6rem; color:#00eaff; text-shadow:0 0 8px #00eaff,0 0 20px #8a2eff; }
+.nav nav a { margin-left:24px; font-weight:600; padding:8px 14px; border-radius:12px; text-decoration:none; color:#fff; transition:0.2s all; }
+.nav nav a:hover { background:#00eaff; color:#000; box-shadow:0 0 10px #00eaff,0 0 30px #8a2eff; transform:translateY(-2px); }
+.hero { text-align:center; padding:140px 16px 80px; z-index:2; position:relative; }
+.hero h1 { font-family:'Orbitron', sans-serif; font-size:3rem; color:#00eaff; text-shadow:0 0 12px #00eaff,0 0 30px #8a2eff; margin-bottom:16px; }
+.hero p { font-size:1.2rem; color:#fff; }
+.add-script-box { display:none; max-width:600px; margin:24px auto; padding:24px; background:rgba(0,0,0,0.25); border-radius:20px; backdrop-filter:blur(12px); }
+.add-script-box input, .add-script-box textarea { width:100%; padding:12px; margin-bottom:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.35); color:#fff; }
+.add-script-box button { padding:12px; border-radius:12px; font-weight:600; background:#ff00ff; border:none; color:#000; cursor:pointer; box-shadow:0 0 8px #ff00ff,0 0 20px #8a2eff; transition:0.2s all; }
+.add-script-box button:hover { box-shadow:0 0 16px #ff00ff,0 0 40px #8a2eff; transform:translateY(-2px); }
+.features { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin:40px 16px; }
+.card { background:rgba(0,0,0,0.25); border-radius:20px; padding:20px; position:relative; box-shadow:0 10px 30px rgba(0,0,0,0.5); transition:transform 0.2s, box-shadow 0.2s; min-height:120px; word-wrap:break-word; }
+.card:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.6); }
+.card h3 { color:#00eaff; text-shadow:0 0 8px #00eaff,0 0 16px #8a2eff; margin-bottom:8px; }
+.card p { color:#fff; margin-bottom:12px; }
+.card pre { background:rgba(0,0,0,0.35); padding:12px; border-radius:12px; color:#00eaff; font-family:monospace; white-space:pre-wrap; }
+.card-buttons { display:flex; gap:10px; position:absolute; top:12px; right:12px; }
+.card-buttons button { padding:6px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600; transition:0.2s all; }
+.card-buttons .delete-btn { background:#ff0033; color:#fff; box-shadow:0 0 6px #ff0033,0 0 12px #ff8a2e; }
+.card-buttons .delete-btn:hover { transform:translateY(-1px); box-shadow:0 0 12px #ff0033,0 0 24px #ff8a2e; }
+.card-buttons .copy-btn { background:#003366; color:#fff; box-shadow:0 0 6px #003366,0 0 12px #0055aa; }
+.card-buttons .copy-btn:hover { background:#0055aa; box-shadow:0 0 12px #0055aa,0 0 24px #0077cc; transform:translateY(-1px); }
+.footer { text-align:center; padding:24px 16px; color:#fff; background:transparent; }
+#bg-particles { position:fixed; inset:0; width:100%; height:100%; z-index:0; }
+.neon-gradient { position:fixed; inset:0; background:linear-gradient(45deg,rgba(0,255,255,0.1),rgba(138,46,255,0.1)); z-index:1; }
+.grid-overlay { position:fixed; inset:0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px,transparent 1px); background-size:50px 50px; z-index:1; }
+.login-panel { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px); z-index:1000; }
+.login-box { background:rgba(0,0,0,0.25); padding:32px; border-radius:20px; display:flex; flex-direction:column; gap:12px; width:320px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.7); }
+.login-box h2 { font-family:Orbitron, sans-serif; color:#00eaff; text-shadow:0 0 8px #00eaff,0 0 20px #8a2eff; margin-bottom:8px; }
+.login-box input { padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.35); color:#fff; }
+.login-box button { padding:12px; border-radius:10px; font-weight:600; background:#00eaff; border:none; color:#000; cursor:pointer; box-shadow:0 0 8px #00eaff,0 0 20px #8a2eff; transition:0.2s; }
+.login-box button:hover { box-shadow:0 0 16px #00eaff,0 0 40px #8a2eff; transform:translateY(-2px); }
+.login-error { color:#ff5c5c; font-size:0.9rem; }
+</style>
+</head>
+<body>
+
+<canvas id="bg-particles"></canvas>
+<div class="neon-gradient"></div>
+<div class="grid-overlay"></div>
+
+<header class="glass nav">
+  <div class="brand">NEON<span>DOCS</span></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="scripts.html">Scripts</a>
+    <a href="flags.html">Flags</a>
+    <a href="coming-soon.html" class="btn btn-outline">Coming Soon</a>
+  </nav>
+</header>
+
+<!-- Login Panel -->
+<div class="login-panel" id="login-panel">
+  <div class="login-box">
+    <h2>Login to Manage Scripts</h2>
+    <input type="text" id="login-code" placeholder="Enter code...">
+    <button id="login-btn">Sign In</button>
+    <p class="lead">Guest code: <strong>GuestCode</strong></p>
+    <p id="login-error" class="login-error"></p>
+  </div>
+</div>
+
+<main class="container">
+  <section class="hero">
+    <h1 class="scramble">Scripts Library</h1>
+    <p class="lead">Scripts Section Coming Later</p>
+  </section>
+
+  <section class="add-script-box" id="add-script-section">
+    <h2>Add a Script</h2>
+    <input type="text" id="script-name" placeholder="Script Name...">
+    <textarea id="script-desc" placeholder="Script Description..."></textarea>
+    <textarea id="script-code" placeholder="Script Code..."></textarea>
+    <button id="add-script-btn">Add Script</button>
+  </section>
+
+  <section class="features" id="scripts-list"></section>
+</main>
+
+<footer class="footer">
+  <p>© <span id="year"></span> NeonDocs • Scripts Page</p>
+</footer>
+
+<script>
+// ===== Full JS Integrated Here =====
+const ADMIN_CODE="OwnerCodeHere";
+const GUEST_CODE="GuestCode";
+
+const loginPanel=document.getElementById("login-panel");
+const loginInput=document.getElementById("login-code");
+const loginBtn=document.getElementById("login-btn");
+const loginError=document.getElementById("login-error");
+
+const addSection=document.getElementById("add-script-section");
+const scriptName=document.getElementById("script-name");
+const scriptDesc=document.getElementById("script-desc");
+const scriptCode=document.getElementById("script-code");
+const addBtn=document.getElementById("add-script-btn");
+const scriptsList=document.getElementById("scripts-list");
+
+let userCode="";
+
+// Example scripts
+let scriptsData=[
+  {title:"Hello World", description:"Print Hello World", code:`print("Hello World")`},
+  {title:"Speed Boost", description:"Increase WalkSpeed", code:`game.Players.LocalPlayer.Character.Humanoid.WalkSpeed=100`},
+  {title:"Infinite Jump", description:"Enable Infinite Jump", code:`local player=game.Players.LocalPlayer
+player.Character.Humanoid.JumpPower=100`},
+  {title:"Teleport Script", description:"Teleport to mouse", code:`local player=game.Players.LocalPlayer
+local mouse=player:GetMouse()
+player.Character.HumanoidRootPart.CFrame=CFrame.new(mouse.Hit.p)`},
+];
+
+function loadScripts() {
+  scriptsList.innerHTML="";
+  scriptsData.forEach((s, idx)=>{
+    const card=document.createElement("article");
+    card.className="card";
+
+    const title=document.createElement("h3");
+    title.textContent=s.title;
+    const desc=document.createElement("p");
+    desc.textContent=s.description;
+    const codeBlock=document.createElement("pre");
+    codeBlock.innerHTML=`<code>${s.code}</code>`;
+    card.append(title,desc,codeBlock);
+
+    const btns=document.createElement("div");
+    btns.className="card-buttons";
+
+    const copyBtn=document.createElement("button");
+    copyBtn.className="copy-btn";
+    copyBtn.textContent="Copy";
+    copyBtn.addEventListener("click",()=>{
+      navigator.clipboard.writeText(s.code).then(()=>{
+        copyBtn.textContent="Copied!";
+        setTimeout(()=>copyBtn.textContent="Copy",1200);
+      }).catch(()=>alert("Copy failed!"));
+    });
+    btns.appendChild(copyBtn);
+
+    if(userCode===ADMIN_CODE){
+      const delBtn=document.createElement("button");
+      delBtn.className="delete-btn";
+      delBtn.textContent="Delete";
+      delBtn.addEventListener("click",()=>{
+        if(confirm("Delete this script?")){
+          scriptsData.splice(idx,1);
+          loadScripts();
+        }
+      });
+      btns.appendChild(delBtn);
+    }
+
+    card.appendChild(btns);
+    scriptsList.appendChild(card);
+  });
+}
+
+loginBtn.addEventListener("click",()=>{
+  const code=loginInput.value.trim();
+  if(code===ADMIN_CODE){
+    userCode=ADMIN_CODE;
+    loginPanel.style.display="none";
+    addSection.style.display="block";
+    loadScripts();
+  }else if(code===GUEST_CODE){
+    userCode=GUEST_CODE;
+    loginPanel.style.display="none";
+    addSection.style.display="none";
+    loadScripts();
+  }else loginError.textContent="Invalid code!";
+});
+
+addBtn.addEventListener("click",()=>{
+  const title=scriptName.value.trim();
+  const desc=scriptDesc.value.trim();
+  const code=scriptCode.value.trim();
+  if(!title||!desc||!code)return;
+  scriptsData.push({title,description:desc,code});
+  scriptName.value="";
+  scriptDesc.value="";
+  scriptCode.value="";
+  loadScripts();
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const canvas=document.getElementById('bg-particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+const particles=[];
+const particleCount=80;
+class Particle{
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=Math.random()*3+1;
+    this.speedX=(Math.random()-0.5)*1.2;
+    this.speedY=(Math.random()-0.5)*1.2;
+    this.color=`rgba(0,255,255,${Math.random()})`;
+  }
+  update(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    if(this.x<0||this.x>canvas.width)this.speedX*=-1;
+    if(this.y<0||this.y>canvas.height)this.speedY*=-1;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=this.color;
+    ctx.fill();
+  }
+}
+for(let i=0;i<particleCount;i++)particles.push(new Particle());
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+</script>
+
+</body>
+</html>
