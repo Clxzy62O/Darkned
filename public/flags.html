@@ -173,6 +173,7 @@ const flagsList = document.getElementById("flags-list");
 
 let userCode = "";
 
+
 // ---------- Load Flags ----------
 async function loadFlags() {
   const res = await fetch("/flags");
@@ -182,7 +183,14 @@ async function loadFlags() {
   flags.forEach((f, idx) => {
     const card = document.createElement("article");
     card.className = "card";
-    card.innerHTML = `<h3>${f.title}</h3><p>${f.description}</p>`;
+    
+    // Split description into lines → convert each to <li>
+    const lines = f.description.split(/\r?\n/).map(line => `<li>${line}</li>`).join("");
+    
+    card.innerHTML = `
+      <h3>${f.title}</h3>
+      <ul>${lines}</ul>
+    `;
 
     const btns = document.createElement("div");
     btns.className = "card-buttons";
@@ -192,7 +200,8 @@ async function loadFlags() {
     copyBtn.textContent = "Copy";
     copyBtn.className = "copy-btn";
     copyBtn.onclick = () => {
-      navigator.clipboard.writeText(`${f.title}: ${f.description}`)
+      // Copies each line neatly
+      navigator.clipboard.writeText(`${f.title}\n${f.description}`)
         .then(() => alert("Copied to clipboard!"))
         .catch(() => alert("Copy failed!"));
     };
@@ -221,6 +230,27 @@ async function loadFlags() {
     flagsList.appendChild(card);
   });
 }
+
+// ---------- Add Flag ----------
+addBtn.addEventListener("click", async () => {
+  const title = flagName.value.trim();
+  const description = flagDesc.value.trim();
+  if(!title || !description) return;
+
+  const res = await fetch("/flags", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code: userCode, title, description })
+  });
+  const data = await res.json();
+  if(res.status !== 200) return alert(data.error);
+
+  flagName.value = "";
+  flagDesc.value = "";
+  loadFlags();
+});
+
+
 
 // ---------- Login ----------
 loginBtn.addEventListener("click", () => {
