@@ -49,7 +49,7 @@
     .nav nav a {
       position: relative;
       font-family: 'Orbitron', sans-serif;
-      color: #fff;
+      color: #ffcfcf;
       text-decoration: none;
       padding: 8px 16px;
       font-weight: 600;
@@ -137,6 +137,18 @@
       box-shadow: 0 0 6px #00eaff, 0 0 12px #ff00ff;
     }
 
+.hero-logo {
+  width: 200px;      /* Increased size */
+  height: auto;
+  margin-bottom: 20px; /* Space between logo and title */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0 0 12px #00eaff) drop-shadow(0 0 24px #ff00ff); /* Stronger glow for bigger logo */
+}
+
+
+
     /* Theme Styles */
     body.theme-dark {
       background: #0a0a0a;
@@ -177,15 +189,16 @@
     <canvas id="nav-particles"></canvas>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Darknd</h1>
-      <p class="lead">Dark Neon Docs, Which is called 'DarkND' or 'DarkNED', Founded By Clxzy.</p>
-      <div class="cta">
-        <a href="scripts.html" class="btn btn-primary">Browse Scripts</a>
-        <a href="flags.html" class="btn btn-outline">View Flags</a>
-      </div>
-    </section>
+<section class="hero">
+  <img src="/icon.png" alt="Darknd Logo" class="hero-logo"/>
+  <h1>Darknd</h1>
+  <p class="lead">Dark Neon Docs, Which is called 'DarkND' or 'DarkNED', Founded By Clxzy.</p>
+  <div class="cta">
+    <a href="scripts.html" class="btn btn-primary">Browse Scripts</a>
+    <a href="flags.html" class="btn btn-outline">View Flags</a>
+  </div>
+</section>
+
 
     <section class="features">
       <article class="card">
@@ -205,6 +218,9 @@
       </article>
     </section>
   </main>
+
+
+
 
   <footer class="footer">
     <p>© <span id="year"></span> Clxzy • Dark Neon Docs</p>
